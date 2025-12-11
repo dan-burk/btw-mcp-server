@@ -59,6 +59,10 @@ RUN R -e "packageVersion('ellmer')"
 # Create app directory
 WORKDIR /app
 
+# Install additional R packages from packages.r
+COPY packages.r /tmp/packages.r
+RUN Rscript /tmp/packages.r
+
 # Copy the MCP server script
 COPY r-mcp-server.r /app/r-mcp-server.r
 
