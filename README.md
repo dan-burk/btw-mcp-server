@@ -6,12 +6,12 @@ Exposes the btw MCP server and custom R tools via Docker for isolated, secure ex
 
 **ARM64 image:**
 ```bash
-docker build -t btw-mcp-server:arm64 -f ARM64/Dockerfile .
+docker build -t btw-mcp-server -f ARM64/Dockerfile .
 ```
 
 **AMD64 image:**
 ```bash
-docker build -t btw-mcp-server:amd64 -f AMD64/Dockerfile .
+docker build -t btw-mcp-server -f AMD64/Dockerfile .
 ```
 
 *Note: The ARM64 and AMD64 Dockerfiles are currently identical (Docker auto-detects the host architecture). They are split out for potential future infrastructure changes (e.g., architecture-specific package repositories).*
