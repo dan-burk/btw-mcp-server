@@ -1,5 +1,9 @@
-# Use native multi-arch image (works on ARM64 and AMD64)
-FROM rocker/r-ver:4.4.3
+# ARM64 Dockerfile
+#
+# BUILD COMMAND (from project root):
+#   docker build -t btw-mcp-server:arm64 -f ARM64/Dockerfile .
+
+FROM --platform=linux/arm64 rocker/r-ver:4.4.3
 
 # Install Linux system build dependencies for R packages
 # This is the Linux equivalent of Rtools on Windows
@@ -43,14 +47,13 @@ RUN apt-get update && apt-get install -y \
     git \
  && rm -rf /var/lib/apt/lists/*
 
-# Install btw package from r-universe (will compile from .tar.gz on ARM64)
-# Using install.packages directly so errors are visible
+# Install btw package from r-universe
 RUN R -e "options(warn = 2); install.packages('btw', repos = c('https://posit-dev.r-universe.dev', 'https://cloud.r-project.org'), dependencies = TRUE)"
 
 # Verify btw installed
 RUN R -e "packageVersion('btw')"
 
-# Install ellmer package (needed for custom run_r_code tool)
+# Install ellmer package
 RUN R -e "options(warn = 2); install.packages('ellmer', repos = c('https://posit-dev.r-universe.dev', 'https://cloud.r-project.org'), dependencies = TRUE)"
 
 # Verify ellmer installed
